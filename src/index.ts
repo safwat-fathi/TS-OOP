@@ -3,6 +3,7 @@ import { AdultsTablet, Tablet } from "./SOLID/LiskovSubstitution";
 import { Laptop, PC } from "./SOLID/InterfaceSegregation";
 import { Man, Child } from "./SOLID/Open-Closed";
 import Store from "./Design-Patterns/creational/Singleton";
+import { Product } from "./Design-Patterns/creational/Prototype";
 
 // const samsungTablet = new Tablet();
 // const samsungAdultsTablet = new AdultsTablet();
@@ -22,14 +23,22 @@ import Store from "./Design-Patterns/creational/Singleton";
 // const son = new Child("Karla", "Ali", "Omar", 3);
 // console.log(son.age);
 
-const storeOne = Store.getInstance();
-const storeTwo = Store.getInstance();
+// const storeOne = Store.getInstance();
+// const storeTwo = Store.getInstance();
 
-console.log(storeOne === storeTwo);
+// console.log(storeOne === storeTwo);
 
 // storeOne.setState({ name: [1, 2, 3, 4, 5] });
 // storeTwo.setState({ person: { name: "ali", age: 44 } });
 
 // console.log(storeOne.state({ name: [1, 2, 3, 4, 5] }));
-storeTwo.state = { name: [1, 2, 3, 4, 5] };
-console.log(storeOne.state);
+// storeTwo.state = { name: [1, 2, 3, 4, 5] };
+// console.log(storeOne.state);
+
+const productOne = new Product("Nokia", 330);
+const productTwo = productOne.clone();
+
+console.log(productTwo === productOne);
+
+console.log(productOne.values);
+console.log(productTwo.values);
