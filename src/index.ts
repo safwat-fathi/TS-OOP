@@ -4,6 +4,16 @@ import { Laptop, PC } from "./SOLID/InterfaceSegregation";
 import { Man, Child } from "./SOLID/Open-Closed";
 import Store from "./Design-Patterns/creational/Singleton";
 import { Product } from "./Design-Patterns/creational/Prototype";
+import { Whatever } from "./decorators";
+import {
+  Computer,
+  ComputerWithPrinterDecorator,
+} from "./Design-Patterns/structural/Decorator";
+
+// const whatever = new Whatever();
+
+// whatever.foo();
+// whatever.bar();
 
 // const samsungTablet = new Tablet();
 // const samsungAdultsTablet = new AdultsTablet();
@@ -35,10 +45,43 @@ import { Product } from "./Design-Patterns/creational/Prototype";
 // storeTwo.state = { name: [1, 2, 3, 4, 5] };
 // console.log(storeOne.state);
 
-const productOne = new Product("Nokia", 330);
-const productTwo = productOne.clone();
+// const productOne = new Product("Nokia", 330);
+// const productTwo = productOne.clone();
 
-console.log(productTwo === productOne);
+// console.log(productTwo === productOne);
 
-console.log(productOne.values);
-console.log(productTwo.values);
+// console.log(productOne.values);
+// console.log(productTwo.values);
+
+// class State {
+//   private _state: { [key: string]: any };
+
+//   constructor() {
+//     this._state = {} as const;
+//   }
+
+//   public get state() {
+//     return this._state;
+//   }
+
+//   public set state(newState: any) {
+//     this._state = newState;
+//   }
+// }
+
+// const appOneState = new State();
+// const appTwoState = new State();
+
+// appOneState.state = { ni: 222 };
+// console.log(appOneState.state);
+// appOneState.state = { ...appOneState.state, we: 444 };
+// appTwoState.state = { hehe: "dddddd" };
+
+// console.log(appOneState.state);
+// console.log(appTwoState.state);
+
+const pc = new Computer();
+pc.print();
+
+const pcWithPrinter = new ComputerWithPrinterDecorator(pc);
+pcWithPrinter.print();

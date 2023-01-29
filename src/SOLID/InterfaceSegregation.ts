@@ -58,7 +58,7 @@ interface DeluxePorts {
   useNFC: () => void;
 }
 
-export class PC implements CommonPorts, DeluxePorts {
+export class PC implements CommonPorts, DeluxePorts, ExtraPorts {
   useUSB() {
     console.log("USB port is ready for your PC!");
   }

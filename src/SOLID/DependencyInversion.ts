@@ -87,9 +87,7 @@ class SignalApi implements MessengerApi {
 }
 
 class Messenger {
-  private api: MessengerApi;
-
-  constructor(api: MessengerApi) {
+  constructor(private api: MessengerApi) {
     this.api = api;
   }
 
