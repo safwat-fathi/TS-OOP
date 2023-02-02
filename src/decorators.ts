@@ -1,3 +1,4 @@
+// * DECORATORS IN TYPESCRIPT
 function disable(
   target: {},
   methodName: string,

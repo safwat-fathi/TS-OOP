@@ -9,6 +9,7 @@ import {
   Computer,
   ComputerWithPrinterDecorator,
 } from "./Design-Patterns/structural/Decorator";
+import { Car } from "./Design-Patterns/behavioral/Observer";
 
 // const whatever = new Whatever();
 
@@ -80,8 +81,29 @@ import {
 // console.log(appOneState.state);
 // console.log(appTwoState.state);
 
-const pc = new Computer();
-pc.print();
+// const pc = new Computer();
+// pc.print();
 
-const pcWithPrinter = new ComputerWithPrinterDecorator(pc);
-pcWithPrinter.print();
+// const pcWithPrinter = new ComputerWithPrinterDecorator(pc);
+// pcWithPrinter.print();
+
+async function testObservers(): Promise<any> {
+  const car = new Car(200);
+  car.registerCurrentSpeedObserver(checkSpeedLimit);
+}
+
+function reportCurrentSpeed(newValue: number, oldValue: number) {
+  console.log("Car running at " + newValue + " km/h");
+}
+
+function checkSpeedLimit(newValue: number, oldValue: number) {
+  const speedLimit = 100;
+
+  if (newValue < speedLimit && newValue > speedLimit - 30) {
+    console.log("Approaching speed limit");
+  } else if (newValue === speedLimit) {
+    console.log("Running at speed limit");
+  } else if (newValue > speedLimit) {
+    console.log("You have exceeded speed limit");
+  }
+}
