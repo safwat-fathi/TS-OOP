@@ -1,15 +1,19 @@
-import { Note, Notebook } from "./SOLID/SingleResponsibility";
-import { AdultsTablet, Tablet } from "./SOLID/LiskovSubstitution";
-import { Laptop, PC } from "./SOLID/InterfaceSegregation";
-import { Man, Child } from "./SOLID/Open-Closed";
-import Store from "./Design-Patterns/creational/Singleton";
-import { Product } from "./Design-Patterns/creational/Prototype";
-import { Whatever } from "./decorators";
+// * Note:
+// As a rule of thumb, you should be declaring interfaces first. However, when you want to combine or create new types on the fly, then you should use types.
+
+import { Note, Notebook } from "src/SOLID/SingleResponsibility";
+import { AdultsTablet, Tablet } from "src/SOLID/LiskovSubstitution";
+import { Laptop, PC } from "src/SOLID/InterfaceSegregation";
+import { Man, Child } from "src/SOLID/Open-Closed";
+import Store from "src/Design-Patterns/creational/Singleton";
+// import { Product } from "src/Design-Patterns/creational/Prototype";
+import { Whatever } from "src/decorators";
 import {
   Computer,
   ComputerWithPrinterDecorator,
-} from "./Design-Patterns/structural/Decorator";
-import { Car } from "./Design-Patterns/behavioral/Observer";
+} from "src/Design-Patterns/structural/Decorator";
+import { Car } from "src/Design-Patterns/behavioral/Observer";
+import { BasicPlanProfileConfig } from "src/Design-Patterns/behavioral/Template-method";
 
 // const whatever = new Whatever();
 
@@ -87,23 +91,109 @@ import { Car } from "./Design-Patterns/behavioral/Observer";
 // const pcWithPrinter = new ComputerWithPrinterDecorator(pc);
 // pcWithPrinter.print();
 
-async function testObservers(): Promise<any> {
-  const car = new Car(200);
-  car.registerCurrentSpeedObserver(checkSpeedLimit);
+// async function testObservers(): Promise<any> {
+//   const car = new Car(200);
+//   car.registerCurrentSpeedObserver(checkSpeedLimit);
+// }
+
+// function reportCurrentSpeed(newValue: number, oldValue: number) {
+//   console.log("Car running at " + newValue + " km/h");
+// }
+
+// function checkSpeedLimit(newValue: number, oldValue: number) {
+//   const speedLimit = 100;
+
+//   if (newValue < speedLimit && newValue > speedLimit - 30) {
+//     console.log("Approaching speed limit");
+//   } else if (newValue === speedLimit) {
+//     console.log("Running at speed limit");
+//   } else if (newValue > speedLimit) {
+//     console.log("You have exceeded speed limit");
+//   }
+// }
+
+// const basicPlanConfig = new BasicPlanProfileConfig();
+
+// basicPlanConfig.start();
+
+// tuple ex.
+const tuple: [number, string, string] = [1, "w", "d"];
+
+// abstract class ex.
+abstract class BaseApiClient {
+  abstract fetch(req: any): Promise<any>;
 }
 
-function reportCurrentSpeed(newValue: number, oldValue: number) {
-  console.log("Car running at " + newValue + " km/h");
-}
-
-function checkSpeedLimit(newValue: number, oldValue: number) {
-  const speedLimit = 100;
-
-  if (newValue < speedLimit && newValue > speedLimit - 30) {
-    console.log("Approaching speed limit");
-  } else if (newValue === speedLimit) {
-    console.log("Running at speed limit");
-  } else if (newValue > speedLimit) {
-    console.log("You have exceeded speed limit");
+class UsersClient extends BaseApiClient {
+  fetch(): Promise<any> {
+    return Promise.resolve();
   }
 }
+
+const usersClient = new UsersClient();
+
+type A = 2 | 4 | 5;
+type B = 3 | 10 | 20;
+
+type C = `${A} & ${B}`;
+
+const num: C = "4 & 10";
+
+type Point2dLabeled = [x: number, y: number];
+type Point3dLabeled = [x: number, y: number, z: number];
+
+const labeledTuple: Point2dLabeled = [2, 3];
+
+labeledTuple[0];
+
+type Suit = "Spade" | "Heart" | "Diamond" | "Club";
+type Rank =
+  | "2"
+  | "3"
+  | "4"
+  | "5"
+  | "6"
+  | "7"
+  | "8"
+  | "9"
+  | "10"
+  | "Jack"
+  | "Queen"
+  | "King"
+  | "Ace";
+
+type Deck = `${Rank} of ${Suit}`;
+
+const deck: Deck = "2 of Spade";
+
+// interface Id<T extends string | number> {
+//   id: T;
+// }
+
+// class Product implements Id<string> {
+//   private _id: string;
+
+//   constructor(id: string) {
+//     this._id = id;
+//   }
+
+//   public get id(): string {
+//     return this._id;
+//   }
+
+//   public set id(newValue: string) {
+//     this._id = newValue;
+//   }
+// }
+
+// const prod = new Product("ieie3");
+// prod.id = "awdawdawd";
+// console.log(prod.id);
+import { PremiumWebSiteBuilder } from "./Design-Patterns/creational/Builder";
+
+const wb = new PremiumWebSiteBuilder();
+wb.setName("looooool").setHost("hahaha").setPort(3344);
+
+const website = wb.build();
+
+console.log(website.name);
