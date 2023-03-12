@@ -189,11 +189,11 @@ const deck: Deck = "2 of Spade";
 // const prod = new Product("ieie3");
 // prod.id = "awdawdawd";
 // console.log(prod.id);
-import { PremiumWebSiteBuilder } from "./Design-Patterns/creational/Builder";
+// import { PremiumWebSiteBuilder } from "./Design-Patterns/creational/Builder";
 
-const wb = new PremiumWebSiteBuilder();
-wb.setName("looooool").setHost("hahaha").setPort(3344);
+// const wb = new PremiumWebSiteBuilder();
+// wb.setName("looooool").setHost("hahaha").setPort(3344);
 
-const website = wb.build();
+// const website = wb.build();
 
-console.log(website.name);
+// console.log(website.name);
