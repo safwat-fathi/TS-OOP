@@ -7,23 +7,26 @@ import axios, {
 } from "axios";
 
 class HttpClient {
-  private readonly _instance: AxiosInstance;
+  private static _instance: HttpClient | null = null;
+  private readonly _axios_instance: AxiosInstance;
+  private readonly _auth_token: string;
 
-  constructor() {
-    this._instance = axios.create({
-      baseURL: "https://official-joke-api.appspot.com",
-      // withCredentials: false,
+  private constructor(baseURL: string) {
+    this._auth_token = localStorage.getItem("auth_token") || ""; // Get auth token from local storage or other source
+
+    this._axios_instance = axios.create({
+      baseURL,
       headers: {
-        "Content-Type": "application/json",
+        Authorization: `Bearer ${this._auth_token}`, // Add auth token to request headers
       },
     });
 
-    this._instance.interceptors.request.use(
+    this._axios_instance.interceptors.request.use(
       (config: InternalAxiosRequestConfig) => config,
       (error: any) => Promise.reject(error)
     );
 
-    this._instance.interceptors.response.use(
+    this._axios_instance.interceptors.response.use(
       (response: AxiosResponse) => {
         return response;
       },
@@ -31,8 +34,14 @@ class HttpClient {
     );
   }
 
+  public static get instance() {
+    if (this._instance === null)
+      this._instance = new HttpClient("XXXXXXXXXXXXXXXXXXXXX");
+    return this._instance;
+  }
+
   public async get<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
-    const response = await this._instance.get<T>(url, config);
+    const response = await this._axios_instance.get<T>(url, config);
 
     return response.data;
   }
@@ -42,7 +51,7 @@ class HttpClient {
     data?: any,
     config?: AxiosRequestConfig
   ): Promise<T> {
-    const response = await this._instance.post<T>(url, data, config);
+    const response = await this._axios_instance.post<T>(url, data, config);
 
     return response.data;
   }
@@ -52,13 +61,13 @@ class HttpClient {
     data?: any,
     config?: AxiosRequestConfig
   ): Promise<T> {
-    const response = await this._instance.put<T>(url, data, config);
+    const response = await this._axios_instance.put<T>(url, data, config);
 
     return response.data;
   }
 
   public async delete<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
-    const response = await this._instance.delete<T>(url, config);
+    const response = await this._axios_instance.delete<T>(url, config);
 
     return response.data;
   }
@@ -68,7 +77,7 @@ class HttpClient {
     formData: FormData,
     onUploadProgress?: (progressEvent: AxiosProgressEvent) => void
   ): Promise<T> {
-    const response = await this._instance.post<T>(url, formData, {
+    const response = await this._axios_instance.post<T>(url, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -79,7 +88,9 @@ class HttpClient {
   }
 }
 
-export default HttpClient;
+const httpClient = HttpClient.instance;
+
+export default httpClient;
 
 // Usage: import HttpClient from "./HttpClient";
 

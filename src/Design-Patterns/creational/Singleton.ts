@@ -21,3 +21,7 @@ export default class Store {
     return this._appState;
   }
 }
+
+// build a  store with initial data
+const myStore = Store.instance;
+myStore.state = { count: 0 };
